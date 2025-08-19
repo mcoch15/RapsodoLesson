@@ -3,6 +3,7 @@
   const el = document.getElementById(mountId);
   if (!el) return;
 
+  // Minimal styles
   const css = `
     .rl-card{border:1px solid #e5e7eb;border-radius:12px;padding:16px;margin:8px 0;background:#fff}
     .rl-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
@@ -12,16 +13,21 @@
     pre{background:#f3f4f6;padding:12px;border-radius:8px;overflow:auto}
     h2,h3{margin:0 0 8px 0}
   `;
-  const style = document.createElement("style"); style.textContent = css; document.head.appendChild(style);
+  const style = document.createElement("style");
+  style.textContent = css;
+  document.head.appendChild(style);
 
+  // UI with NEW metric fields
   el.innerHTML = `
     <div class="rl-card">
       <h2>Build Your Personalized Lesson</h2>
+
       <label>Mode</label>
       <select id="rl-mode" class="rl-select">
         <option value="hitting">Hitting</option>
         <option value="pitching">Pitching</option>
       </select>
+
       <div class="rl-grid">
         <div>
           <label>Level</label>
@@ -41,22 +47,19 @@
         </div>
       </div>
 
+      <!-- Hitting (NEW fields) -->
       <div id="rl-hit" class="rl-card">
         <h3>Hitting Metrics</h3>
         <div class="rl-grid">
-          <div><label>Samples</label><input id="rl-samples" class="rl-input" type="number" value="25"></div>
-          <div><label>Avg EV (mph)</label><input id="rl-avg_ev" class="rl-input" type="number" value="82"></div>
-          <div><label>Max EV (mph)</label><input id="rl-max_ev" class="rl-input" type="number" value="94"></div>
-          <div><label>Avg Launch Angle (°)</label><input id="rl-avg_la" class="rl-input" type="number" value="10"></div>
-          <div><label>Hard-Hit Rate (0-1)</label><input id="rl-hard_hit_rate" class="rl-input" type="number" step="0.01" value="0.35"></div>
-          <div><label>Ground-Ball Rate (0-1)</label><input id="rl-gb_rate" class="rl-input" type="number" step="0.01" value="0.48"></div>
-          <div><label>Airball Rate (0-1)</label><input id="rl-airball_rate" class="rl-input" type="number" step="0.01" value="0.30"></div>
-          <div><label>Pull % (0-1)</label><input id="rl-pull_rate" class="rl-input" type="number" step="0.01" value="0.55"></div>
-          <div><label>Oppo % (0-1)</label><input id="rl-oppo_rate" class="rl-input" type="number" step="0.01" value="0.20"></div>
-          <div><label>Sweet Spot % (0-1)</label><input id="rl-sweet_spot_rate" class="rl-input" type="number" step="0.01" value="0.27"></div>
+          <div><label>Exit Velocity (mph)</label><input id="rl-exit_velocity" class="rl-input" type="number" value="82"></div>
+          <div><label>Launch Angle (°)</label><input id="rl-launch_angle" class="rl-input" type="number" value="15"></div>
+          <div><label>Exit Direction (°)</label><input id="rl-exit_direction" class="rl-input" type="number" value="0"></div>
+          <div><label>Distance (ft)</label><input id="rl-distance" class="rl-input" type="number" value="300"></div>
+          <div><label>Spin Rate (rpm)</label><input id="rl-batted_spin" class="rl-input" type="number" value="1800"></div>
         </div>
       </div>
 
+      <!-- Pitching (NEW fields) -->
       <div id="rl-pitch" class="rl-card" style="display:none">
         <h3>Pitching Metrics</h3>
         <div class="rl-grid">
@@ -72,16 +75,14 @@
               <option value="SP">SP</option>
             </select>
           </div>
-          <div><label>Avg Velo (mph)</label><input id="rl-avg_velo" class="rl-input" type="number" value="84"></div>
-          <div><label>Spin Rate (rpm)</label><input id="rl-spin_rate" class="rl-input" type="number" value="2200"></div>
-          <div><label>Spin Efficiency (0-1)</label><input id="rl-spin_efficiency" class="rl-input" type="number" step="0.01" value="0.86"></div>
-          <div><label>IVB (in)</label><input id="rl-ivb" class="rl-input" type="number" value="13"></div>
-          <div><label>HB (in)</label><input id="rl-hb" class="rl-input" type="number" value="5"></div>
+          <div><label>Velocity (mph)</label><input id="rl-velocity" class="rl-input" type="number" value="88"></div>
+          <div><label>Total Spin (rpm)</label><input id="rl-total_spin" class="rl-input" type="number" value="2200"></div>
+          <div><label>Spin Direction (°)</label><input id="rl-spin_direction" class="rl-input" type="number" value="180"></div>
+          <div><label>Gyro Degree (°)</label><input id="rl-gyro_degree" class="rl-input" type="number" value="15"></div>
+          <div><label>Spin Efficiency (0–1)</label><input id="rl-spin_efficiency" class="rl-input" type="number" step="0.01" value="0.90"></div>
           <div><label>Release Height (ft)</label><input id="rl-release_height" class="rl-input" type="number" value="5.7"></div>
-          <div><label>Release Side (ft)</label><input id="rl-release_side" class="rl-input" type="number" value="2.2"></div>
-          <div><label>Extension (ft)</label><input id="rl-extension" class="rl-input" type="number" value="5.7"></div>
-          <div><label>Zone Rate (0-1)</label><input id="rl-zone_rate" class="rl-input" type="number" step="0.01" value="0.45"></div>
-          <div><label>Whiff Rate (0-1)</label><input id="rl-whiff_rate" class="rl-input" type="number" step="0.01" value="0.25"></div>
+          <div><label>Vertical Break (in)</label><input id="rl-vertical_break" class="rl-input" type="number" value="14"></div>
+          <div><label>Horizontal Break (in)</label><input id="rl-horizontal_break" class="rl-input" type="number" value="5"></div>
         </div>
       </div>
 
@@ -95,43 +96,57 @@
   `;
 
   const $ = (id)=>document.getElementById(id);
-  const modeSel = $("rl-mode"), hitBox = $("rl-hit"), pitchBox = $("rl-pitch");
-  modeSel.addEventListener("change", ()=> {
-    const v = modeSel.value;
-    hitBox.style.display = v==="hitting" ? "block" : "none";
-    pitchBox.style.display = v==="pitching" ? "block" : "none";
+
+  // Toggle sections by mode
+  $("rl-mode").addEventListener("change", ()=>{
+    const v = $("rl-mode").value;
+    $("rl-hit").style.display = v==="hitting" ? "block" : "none";
+    $("rl-pitch").style.display = v==="pitching" ? "block" : "none";
   });
 
-  const API_BASE = window.API_BASE || "http://127.0.0.1:8000";
-
+  // Click handler with NEW payloads
   $("rl-go").addEventListener("click", async ()=>{
-    const common = { level:$("rl-level").value, handedness:$("rl-handedness").value };
     const mode = $("rl-mode").value;
-    const payload = (mode==="hitting") ? {
-      ...common,
-      samples:+$("rl-samples").value, avg_ev:+$("rl-avg_ev").value, max_ev:+$("rl-max_ev").value, avg_la:+$("rl-avg_la").value,
-      hard_hit_rate:+$("rl-hard_hit_rate").value, gb_rate:+$("rl-gb_rate").value, airball_rate:+$("rl-airball_rate").value,
-      pull_rate:+$("rl-pull_rate").value, oppo_rate:+$("rl-oppo_rate").value, sweet_spot_rate:+$("rl-sweet_spot_rate").value
-    } : {
-      ...common,
-      pitch_type:$("rl-pitch_type").value, avg_velo:+$("rl-avg_velo").value, spin_rate:+$("rl-spin_rate").value,
-      spin_efficiency:+$("rl-spin_efficiency").value, ivb:+$("rl-ivb").value, hb:+$("rl-hb").value,
-      release_height:+$("rl-release_height").value, release_side:+$("rl-release_side").value, extension:+$("rl-extension").value,
-      zone_rate:+$("rl-zone_rate").value, whiff_rate:+$("rl-whiff_rate").value
-    };
-    const url = API_BASE + (mode==="hitting") ? "/analyze/hitting" : "/analyze/pitching";
+    const common = { level:$("rl-level").value, handedness:$("rl-handedness").value };
 
-    const out = document.getElementById("rl-json"), box = document.getElementById("rl-out");
+    let payload;
+    if (mode === "hitting") {
+      payload = {
+        ...common,
+        exit_velocity: +$("rl-exit_velocity").value,
+        launch_angle: +$("rl-launch_angle").value,
+        exit_direction: +$("rl-exit_direction").value,
+        distance: +$("rl-distance").value,
+        spin_rate: +$("rl-batted_spin").value
+      };
+    } else {
+      payload = {
+        ...common,
+        pitch_type: $("rl-pitch_type").value,
+        velocity: +$("rl-velocity").value,
+        total_spin: +$("rl-total_spin").value,
+        spin_direction: +$("rl-spin_direction").value,
+        gyro_degree: +$("rl-gyro_degree").value,
+        spin_efficiency: +$("rl-spin_efficiency").value,
+        release_height: +$("rl-release_height").value,
+        vertical_break: +$("rl-vertical_break").value,
+        horizontal_break: +$("rl-horizontal_break").value
+      };
+    }
+
+    const base = (window.API_BASE) || window.location.origin || "http://127.0.0.1:8000";
+    const path = mode === "hitting" ? "/analyze/hitting" : "/analyze/pitching";
+    const url = base + path;
+
+    const out = $("rl-json"), box = $("rl-out");
     try {
-      const r = await fetch(API_BASE + (mode==="hitting" ? "/analyze/hitting" : "/analyze/pitching"), {
-        method:"POST", headers:{ "Content-Type":"application/json" }, body:JSON.stringify(payload)
-      });
+      const r = await fetch(url, { method:"POST", headers:{ "Content-Type":"application/json" }, body:JSON.stringify(payload) });
       if (!r.ok) { out.textContent = "Error: "+r.status+" "+(await r.text()); box.style.display="block"; return; }
       const data = await r.json();
       out.textContent = JSON.stringify(data, null, 2);
       box.style.display = "block";
     } catch (e) {
-      out.textContent = "Network error: " + e.message + "\nCheck API_BASE and CORS.";
+      out.textContent = "Network error: " + e.message + "\\nCheck API_BASE and CORS.";
       box.style.display = "block";
     }
   });
