@@ -3,7 +3,9 @@
   <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Rapsodo Widget</title></head>
   <body style="font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;">
     <div id="rapsodo-lesson-widget"></div>
-    <script>window.API_BASE="http://127.0.0.1:8000";</script>
-    <script src="./widget.js" defer></script>
+    <script>
+      // When hosted on Render, use the same origin as the API automatically:
+      window.API_BASE = window.location.origin;
+    </script>    
   </body>
 </html>
